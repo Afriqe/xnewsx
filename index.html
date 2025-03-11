@@ -6,40 +6,41 @@
     <title>XNewsX Aggregator</title>
     <style>
         body {
-            font-family: 'Courier New', monospace;
-            background-color: #000000;
-            color: #ffffff;
+            font-family: Arial, sans-serif; /* Most popular font: Arial */
+            background-color: #ffffff; /* White background */
+            color: #000000; /* Black text */
             margin: 20px;
             text-align: center;
         }
         h1 {
-            color: #ff00ff;
-            font-size: 2.5em;
-            text-decoration: underline;
+            color: #000000; /* Black for the header */
+            font-size: 2em;
+            margin-bottom: 20px;
         }
         .tweet {
-            border: 2px dashed #00ff00;
-            padding: 15px;
-            margin: 10px auto;
+            border-bottom: 1px solid #000000; /* Simple black line to separate tweets */
+            padding: 10px 0; /* Minimal padding */
+            margin: 0 auto;
             max-width: 600px;
-            background-color: #1a1a1a;
-            color: #ffffff;
+            text-align: left;
         }
         a {
-            color: #ff00ff;
-            text-decoration: underline;
-            font-weight: bold;
-            transition: color 0.3s;
+            color: #000000; /* Black links */
+            text-decoration: underline; /* Simple underline for links */
         }
         a:hover {
-            color: #00ff00;
+            color: #000000; /* No hover effect for simplicity */
         }
         .error {
-            color: #ff0000;
+            color: #000000; /* Black for errors (in case we need it later) */
             font-size: 1.2em;
         }
+        small {
+            color: #666666; /* Gray for timestamps */
+            font-size: 0.8em;
+        }
     </style>
-    <link rel="icon" type="image/x-icon" href="/xnewsx/favicon.ico"> <!-- Optional: Add favicon -->
+    <link rel="icon" type="image/x-icon" href="/xnewsx/favicon.ico">
 </head>
 <body>
     <h1>XNewsX Feed</h1>
@@ -53,7 +54,7 @@
             ]
         };
 
-        // Uncommented to test with sample data
+        // Display sample data
         displaySampleData(sampleData);
 
         function displaySampleData(data) {
@@ -69,45 +70,6 @@
                 feed.appendChild(tweetDiv);
             });
         }
-
-        // Commented out fetch block to avoid CORS error
-        // const apiUrl = "https://api.x.com/2/tweets/search/recent?query=news&tweet.fields=created_at";
-        // const token = "AAAAAAAAAAAAAAAAAAAAAN1RzwEAAAAA%2Bvf7iT2dBsgBZaHw9tP1Hz%2FXkw8%3DcqEgLkMVMXDJC3BDJs77qeNt0EK1G2rkKHWPK0zUV5YQk7sQ2f";
-        //
-        // fetch(apiUrl, {
-        //     headers: {
-        //         "Authorization": `Bearer ${token}`,
-        //         "Content-Type": "application/json"
-        //     }
-        // })
-        // .then(response => {
-        //     if (!response.ok) {
-        //         throw new Error(`HTTP error! Status: ${response.status}`);
-        //     }
-        //     return response.json();
-        // })
-        // .then(data => {
-        //     const feed = document.getElementById("newsFeed");
-        //     if (data.data && data.data.length > 0) {
-        //         data.data.forEach(tweet => {
-        //             const tweetDiv = document.createElement("div");
-        //             tweetDiv.className = "tweet";
-        //             const tweetText = tweet.text.replace(
-        //                 /(https?:\/\/[^\s]+)/g,
-        //                 '<a href="$1" target="_blank">$1</a>'
-        //             );
-        //             tweetDiv.innerHTML = `<p>${tweetText}</p><small>${new Date(tweet.created_at).toLocaleString()}</small>`;
-        //             feed.appendChild(tweetDiv);
-        //         });
-        //     } else {
-        //         feed.innerHTML = "<p class='error'>No tweets found or API limit reached.</p>";
-        //     }
-        // })
-        // .catch(error => {
-        //     const feed = document.getElementById("newsFeed");
-        //     feed.innerHTML = `<p class='error'>Error fetching tweets: ${error.message}. Check your Bearer Token or API access.</p>`;
-        //     console.error("Fetch error details:", error);
-        // });
     </script>
 </body>
 </html>
