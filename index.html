@@ -1,131 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XNewsX Aggregator</title>
-    <style>
-        /* Your existing CSS remains unchanged */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #ffffff;
-            color: #000000;
-            margin: 0;
-            padding: 20px;
-            text-align: center;
-        }
-        .container {
-            border: 1px solid #000000;
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        h1 {
-            color: #000000;
-            font-size: 2em;
-            margin-bottom: 20px;
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-        .box {
-            border: 1px solid #000000;
-            padding: 10px;
-            text-align: left;
-        }
-        .box h2 {
-            font-size: 1.2em;
-            margin-bottom: 10px;
-            border-bottom: 1px solid #000000;
-            padding-bottom: 5px;
-        }
-        .post {
-            margin-bottom: 10px;
-            font-size: 0.9em;
-        }
-        a {
-            color: #000000;
-            text-decoration: underline;
-        }
-        a:hover {
-            color: #000000;
-        }
-        small {
-            color: #666666;
-            font-size: 0.8em;
-        }
-        .ticker {
-            overflow: hidden;
-            white-space: nowrap;
-            border: 1px solid #000000;
-            margin-top: 20px;
-            padding: 5px 0;
-            font-size: 0.9em;
-        }
-        .ticker-content {
-            display: inline-block;
-            animation: scroll 20s linear infinite;
-        }
-        .ticker-item {
-            display: inline-block;
-            margin-right: 20px;
-        }
-        @keyframes scroll {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
-    </style>
-    <link rel="icon" type="image/x-icon" href="/xnewsx/favicon.ico">
-</head>
-<body>
-    <div class="container">
-        <h1>XNewsX Feed</h1>
-        <div class="grid" id="news-grid"></div>
-        <div class="ticker" id="ticker">
-            <div class="ticker-content" id="ticker-content"></div>
-        </div>
-    </div>
-    <script>
-        // Define your X handle (replace with yours)
-       const myHandle = "@bitkoinafrika";
-fetch(`/.netlify/functions/fetch-tweets?handle=${myHandle.replace('@', '')}`);
+<script>
+    const myHandle = "@bitkoinafrika";
 
-        // Populate content dynamically
-        function populateContent(posts) {
-            const grid = document.getElementById("news-grid");
-            const ticker = document.getElementById("ticker-content");
-            grid.innerHTML = ""; // Clear existing content
-            ticker.innerHTML = "";
+    function populateContent(posts) {
+        const grid = document.getElementById("news-grid");
+        const ticker = document.getElementById("ticker-content");
+        grid.innerHTML = "";
+        ticker.innerHTML = "";
 
-            // Single box for your posts
-            const box = document.createElement("div");
-            box.className = "box";
-            box.innerHTML = `<h2>${myHandle} X</h2>`;
-            posts.forEach(post => {
-                box.innerHTML += `<div class="post">${post.text} <a href="${post.link}">Link</a><br><small>${post.time}</small></div>`;
-                ticker.innerHTML += `<span class="ticker-item">${myHandle}: ${post.text} <a href="${post.link}">Link</a> - ${post.time}</span>`;
-            });
-            grid.appendChild(box);
+        const box = document.createElement("div");
+        box.className = "box";
+        box.innerHTML = `<h2>${myHandle} X</h2>`;
+        posts.forEach(post => {
+            box.innerHTML += `<div class="post">${post.text} <a href="${post.link}">Link</a><br><small>${post.time}</small></div>`;
+            ticker.innerHTML += `<span class="ticker-item">${myHandle}: ${post.text} <a href="${post.link}">Link</a> - ${post.time}</span>`;
+        });
+        grid.appendChild(box);
+    }
+
+    async function loadLiveData() {
+        try {
+            const response = await fetch('/.netlify/functions/fetch-tweets');
+            if (!response.ok) throw new Error(`HTTP ${response.status}: ${await response.text()}`);
+            const posts = await response.json();
+            if (posts.error) throw new Error(posts.error);
+            if (!Array.isArray(posts)) throw new Error("Invalid data format");
+            populateContent(posts);
+        } catch (error) {
+            console.error("Error fetching live data:", error);
+            populateContent([{ text: "Error: " + error.message, link: "#", time: new Date().toLocaleString() }]);
         }
+    }
 
-        // Fetch live data from Netlify Function
-        async function loadLiveData() {
-            try {
-                const response = await fetch(`/.netlify/functions/fetch-tweets?handle=${myHandle.replace('@', '')}`);
-                const posts = await response.json();
-                populateContent(posts);
-            } catch (error) {
-                console.error("Error fetching live data:", error);
-                // Fallback mock data
-                populateContent([{ text: "Failed to load live data", link: "#", time: new Date().toLocaleString() }]);
-            }
-        }
-
-        // Load initially and refresh every minute
-        loadLiveData();
-        setInterval(loadLiveData, 60000); // 60 seconds
-    </script>
-</body>
-</html>
+    loadLiveData();
+    setInterval(loadLiveData, 60000);
+</script>
