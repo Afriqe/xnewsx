@@ -6,36 +6,36 @@
     <title>XNewsX Aggregator</title>
     <style>
         body {
-            font-family: 'Courier New', monospace; /* Retro 80s typewriter font */
-            background-color: #000000; /* Black background */
-            color: #ffffff; /* White text for contrast */
+            font-family: 'Courier New', monospace;
+            background-color: #000000;
+            color: #ffffff;
             margin: 20px;
             text-align: center;
         }
         h1 {
-            color: #ff00ff; /* Neon pink for 80s vibe */
+            color: #ff00ff;
             font-size: 2.5em;
             text-decoration: underline;
         }
         .tweet {
-            border: 2px dashed #00ff00; /* Neon green dashed border */
+            border: 2px dashed #00ff00;
             padding: 15px;
             margin: 10px auto;
             max-width: 600px;
-            background-color: #1a1a1a; /* Dark gray for 80s screen effect */
+            background-color: #1a1a1a;
             color: #ffffff;
         }
         a {
-            color: #ff00ff; /* Neon pink links */
+            color: #ff00ff;
             text-decoration: underline;
             font-weight: bold;
             transition: color 0.3s;
         }
         a:hover {
-            color: #00ff00; /* Neon green on hover */
+            color: #00ff00;
         }
         .error {
-            color: #ff0000; /* Red for errors */
+            color: #ff0000;
             font-size: 1.2em;
         }
     </style>
@@ -45,11 +45,9 @@
     <div id="newsFeed"></div>
 
     <script>
-        // Replace with your X API Bearer Token from the Developer Portal
         const apiUrl = "https://api.x.com/2/tweets/search/recent?query=news&tweet.fields=created_at";
-        const token = "AAAAAAAAAAAAAAAAAAAAAN1RzwEAAAAA%2Bvf7iT2dBsgBZaHw9tP1Hz%2FXkw8%3DcqEgLkMVMXDJC3BDJs77qeNt0EK1G2rkKHWPK0zUV5YQk7sQ2f"; // Get this from X Developer Portal
+        const token = "YOUR_BEARER_TOKEN_HERE"; // Replace with your actual token
 
-        // Fetch tweets from X API
         fetch(apiUrl, {
             headers: {
                 "Authorization": `Bearer ${token}`,
@@ -58,7 +56,7 @@
         })
         .then(response => {
             if (!response.ok) {
-                throw new Error("Network response was not ok");
+                throw new Error(`HTTP error! Status: ${response.status}`);
             }
             return response.json();
         })
@@ -68,7 +66,6 @@
                 data.data.forEach(tweet => {
                     const tweetDiv = document.createElement("div");
                     tweetDiv.className = "tweet";
-                    // Convert URLs in tweet text to clickable 80s-style links
                     const tweetText = tweet.text.replace(
                         /(https?:\/\/[^\s]+)/g,
                         '<a href="$1" target="_blank">$1</a>'
@@ -83,8 +80,32 @@
         .catch(error => {
             const feed = document.getElementById("newsFeed");
             feed.innerHTML = `<p class='error'>Error fetching tweets: ${error.message}. Check your Bearer Token or API access.</p>`;
-            console.error("Error:", error);
+            console.error("Fetch error details:", error);
         });
+
+        // Optional: Add sample data for testing if API fails
+        const sampleData = {
+            data: [
+                { text: "Sample news tweet! Check https://example.com", created_at: "2025-03-10T12:00:00Z" },
+                { text: "Another update here.", created_at: "2025-03-10T11:00:00Z" }
+            ]
+        };
+        // Uncomment the line below to test with sample data
+        // displaySampleData(sampleData);
+
+        function displaySampleData(data) {
+            const feed = document.getElementById("newsFeed");
+            data.data.forEach(tweet => {
+                const tweetDiv = document.createElement("div");
+                tweetDiv.className = "tweet";
+                const tweetText = tweet.text.replace(
+                    /(https?:\/\/[^\s]+)/g,
+                    '<a href="$1" target="_blank">$1</a>'
+                );
+                tweetDiv.innerHTML = `<p>${tweetText}</p><small>${new Date(tweet.created_at).toLocaleString()}</small>`;
+                feed.appendChild(tweetDiv);
+            });
+        }
     </script>
 </body>
 </html>
