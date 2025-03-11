@@ -55,6 +55,26 @@
             color: #666666; /* Gray for timestamps */
             font-size: 0.8em;
         }
+        .ticker {
+            overflow: hidden; /* Hide overflow content */
+            white-space: nowrap; /* Prevent text wrapping */
+            border: 1px solid #000000; /* Thin border */
+            margin-top: 20px; /* Space above ticker */
+            padding: 5px 0; /* Vertical padding */
+            font-size: 0.9em; /* Match post text size */
+        }
+        .ticker-content {
+            display: inline-block;
+            animation: scroll 20s linear infinite; /* Scroll animation */
+        }
+        .ticker-item {
+            display: inline-block;
+            margin-right: 20px; /* Space between items */
+        }
+        @keyframes scroll {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
     </style>
     <link rel="icon" type="image/x-icon" href="/xnewsx/favicon.ico">
 </head>
@@ -72,51 +92,4 @@
                 <div class="post">Tesla factory expansion <a href="https://example.com/factory">Link</a><br><small>2025-03-10 10:00</small></div>
             </div>
             <!-- Box 2: Mario Nawfal X -->
-            <div class="box">
-                <h2>Mario Nawfal X</h2>
-                <div class="post">Mario on global markets <a href="https://example.com/markets">Link</a><br><small>2025-03-10 12:00</small></div>
-                <div class="post">Breaking news discussion <a href="https://example.com/breaking">Link</a><br><small>2025-03-10 11:30</small></div>
-                <div class="post">Crypto trends update <a href="https://example.com/crypto">Link</a><br><small>2025-03-10 11:00</small></div>
-                <div class="post">Mario hosts Spaces <a href="https://example.com/spaces">Link</a><br><small>2025-03-10 10:30</small></div>
-                <div class="post">Tech startup insights <a href="https://example.com/startup">Link</a><br><small>2025-03-10 10:00</small></div>
-            </div>
-            <!-- Box 3: Kevin O'Leary X -->
-            <div class="box">
-                <h2>Kevin O'Leary X</h2>
-                <div class="post">Kevin on Shark Tank <a href="https://example.com/sharktank">Link</a><br><small>2025-03-10 12:00</small></div>
-                <div class="post">Investment tips shared <a href="https://example.com/invest">Link</a><br><small>2025-03-10 11:30</small></div>
-                <div class="post">O'Leary on economy <a href="https://example.com/economy">Link</a><br><small>2025-03-10 11:00</small></div>
-                <div class="post">New business venture <a href="https://example.com/venture">Link</a><br><small>2025-03-10 10:30</small></div>
-                <div class="post">Financial advice post <a href="https://example.com/finance">Link</a><br><small>2025-03-10 10:00</small></div>
-            </div>
-            <!-- Box 4: Cuisine X -->
-            <div class="box">
-                <h2>Cuisine X</h2>
-                <div class="post">New recipe for pasta <a href="https://example.com/pasta">Link</a><br><small>2025-03-10 12:00</small></div>
-                <div class="post">Vegan dessert ideas <a href="https://example.com/vegan">Link</a><br><small>2025-03-10 11:30</small></div>
-                <div class="post">Spicy ramen challenge <a href="https://example.com/ramen">Link</a><br><small>2025-03-10 11:00</small></div>
-                <div class="post">BBQ tips for summer <a href="https://example.com/bbq">Link</a><br><small>2025-03-10 10:30</small></div>
-                <div class="post">French pastry tutorial <a href="https://example.com/pastry">Link</a><br><small>2025-03-10 10:00</small></div>
-            </div>
-            <!-- Box 5: Wellness X -->
-            <div class="box">
-                <h2>Wellness X</h2>
-                <div class="post">Morning yoga routine <a href="https://example.com/yoga">Link</a><br><small>2025-03-10 12:00</small></div>
-                <div class="post">Meditation benefits <a href="https://example.com/meditation">Link</a><br><small>2025-03-10 11:30</small></div>
-                <div class="post">Healthy smoothie recipe <a href="https://example.com/smoothie">Link</a><br><small>2025-03-10 11:00</small></div>
-                <div class="post">Sleep improvement tips <a href="https://example.com/sleep">Link</a><br><small>2025-03-10 10:30</small></div>
-                <div class="post">Stress relief guide <a href="https://example.com/stress">Link</a><br><small>2025-03-10 10:00</small></div>
-            </div>
-            <!-- Box 6: World News X -->
-            <div class="box">
-                <h2>World News X</h2>
-                <div class="post">Global climate summit <a href="https://example.com/climate">Link</a><br><small>2025-03-10 12:00</small></div>
-                <div class="post">Election results update <a href="https://example.com/election">Link</a><br><small>2025-03-10 11:30</small></div>
-                <div class="post">Economic forecast 2025 <a href="https://example.com/economy">Link</a><br><small>2025-03-10 11:00</small></div>
-                <div class="post">Peace talks progress <a href="https://example.com/peace">Link</a><br><small>2025-03-10 10:30</small></div>
-                <div class="post">Tech regulation news <a href="https://example.com/tech">Link</a><br><small>2025-03-10 10:00</small></div>
-            </div>
-        </div>
-    </div>
-</body>
-</html>
+            <
