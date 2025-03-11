@@ -137,17 +137,66 @@
                 <div class="post">Tech regulation news <a href="https://example.com/tech">Link</a><br><small>2025-03-10 10:00</small></div>
             </div>
         </div>
-        <!-- Simulated Live X Feed Ticker -->
-        <div class="ticker">
-            <div class="ticker-content">
-                <span class="ticker-item">Elon Musk: Tesla update <a href="https://example.com/tesla2">Link</a> - 10:41 AM SAST</span>
-                <span class="ticker-item">Mario Nawfal: Market crash <a href="https://example.com/market">Link</a> - 10:40 AM SAST</span>
-                <span class="ticker-item">Kevin O'Leary: Invest now <a href="https://example.com/invest2">Link</a> - 10:39 AM SAST</span>
-                <span class="ticker-item">Cuisine X: New sushi recipe <a href="https://example.com/sushi">Link</a> - 10:38 AM SAST</span>
-                <span class="ticker-item">Wellness X: Yoga tips <a href="https://example.com/yoga2">Link</a> - 10:37 AM SAST</span>
-                <span class="ticker-item">World News: Climate deal <a href="https://example.com/climate2">Link</a> - 10:36 AM SAST</span>
+        <!-- Live X Feed Ticker -->
+        <div class="ticker" id="ticker">
+            <div class="ticker-content" id="tickerContent">
+                <!-- Tweets will be populated here -->
             </div>
         </div>
     </div>
+
+    <script>
+        const token = "AAAAAAAAAAAAAAAAAAAAAN1RzwEAAAAA%2Biqb2gn%2FIdP8%2F3dEgLvb6w5CNPQ%3DiipkV2texNmDerr12hjuxLaAyvEFQSBtb3VRmCPJD99ZxRT3ea"; // Replace with your actual Bearer Token
+        const categories = [
+            { name: "Elon Musk", query: "from:elonmusk" },
+            { name: "Mario Nawfal", query: "from:marionawfal" },
+            { name: "Kevin O'Leary", query: "from:kevinolearytv" },
+            { name: "Cuisine", query: "cuisine -is:retweet" },
+            { name: "Wellness", query: "wellness -is:retweet" },
+            { name: "World News", query: "world news -is:retweet" }
+        ];
+
+        async function fetchTweets() {
+            const tickerContent = document.getElementById("tickerContent");
+            tickerContent.innerHTML = ""; // Clear existing content
+
+            for (const category of categories) {
+                const apiUrl = `https://cors-anywhere.herokuapp.com/https://api.x.com/2/tweets/search/recent?query=${encodeURIComponent(category.query)}&tweet.fields=created_at`;
+                try {
+                    const response = await fetch(apiUrl, {
+                        headers: {
+                            "Authorization": `Bearer ${token}`,
+                            "Content-Type": "application/json"
+                        }
+                    });
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    const data = await response.json();
+                    if (data.data && data.data.length > 0) {
+                        const tweet = data.data[0]; // Take the most recent tweet
+                        const tweetText = tweet.text.length > 50 ? tweet.text.substring(0, 47) + "..." : tweet.text;
+                        const tweetLink = `https://x.com/user/status/${tweet.id}`; // Placeholder link
+                        const tickerItem = document.createElement("span");
+                        tickerItem.className = "ticker-item";
+                        tickerItem.innerHTML = `${category.name}: ${tweetText} <a href="${tweetLink}" target="_blank">Link</a> - ${new Date(tweet.created_at).toLocaleTimeString()}`;
+                        tickerContent.appendChild(tickerItem);
+                    }
+                } catch (error) {
+                    console.error(`Error fetching tweets for ${category.name}:`, error);
+                    const tickerItem = document.createElement("span");
+                    tickerItem.className = "ticker-item";
+                    tickerItem.innerHTML = `${category.name}: Error fetching tweet`;
+                    tickerContent.appendChild(tickerItem);
+                }
+            }
+        }
+
+        // Initial fetch
+        fetchTweets();
+
+        // Refresh every 5 minutes (300,000 milliseconds)
+        setInterval(fetchTweets, 300000);
+    </script>
 </body>
 </html>
