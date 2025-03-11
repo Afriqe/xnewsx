@@ -89,7 +89,8 @@
     </div>
     <script>
         // Define your X handle (replace with yours)
-        const myHandle = "@bitkoinafrika"; // e.g., "@MyTestAccount"
+       const myHandle = "@bitkoinafrika";
+fetch(`/.netlify/functions/fetch-tweets?handle=${myHandle.replace('@', '')}`);
 
         // Populate content dynamically
         function populateContent(posts) {
