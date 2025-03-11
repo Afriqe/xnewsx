@@ -39,59 +39,22 @@
             font-size: 1.2em;
         }
     </style>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico"> <!-- Optional: Add favicon -->
 </head>
 <body>
     <h1>XNewsX Feed</h1>
     <div id="newsFeed"></div>
 
     <script>
-        const apiUrl = "https://api.x.com/2/tweets/search/recent?query=news&tweet.fields=created_at";
-        const token = "AAAAAAAAAAAAAAAAAAAAAN1RzwEAAAAA%2Bvf7iT2dBsgBZaHw9tP1Hz%2FXkw8%3DcqEgLkMVMXDJC3BDJs77qeNt0EK1G2rkKHWPK0zUV5YQk7sQ2f"; // Replace with your actual token
-
-        fetch(apiUrl, {
-            headers: {
-                "Authorization": `Bearer ${token}`,
-                "Content-Type": "application/json"
-            }
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            const feed = document.getElementById("newsFeed");
-            if (data.data && data.data.length > 0) {
-                data.data.forEach(tweet => {
-                    const tweetDiv = document.createElement("div");
-                    tweetDiv.className = "tweet";
-                    const tweetText = tweet.text.replace(
-                        /(https?:\/\/[^\s]+)/g,
-                        '<a href="$1" target="_blank">$1</a>'
-                    );
-                    tweetDiv.innerHTML = `<p>${tweetText}</p><small>${new Date(tweet.created_at).toLocaleString()}</small>`;
-                    feed.appendChild(tweetDiv);
-                });
-            } else {
-                feed.innerHTML = "<p class='error'>No tweets found or API limit reached.</p>";
-            }
-        })
-        .catch(error => {
-            const feed = document.getElementById("newsFeed");
-            feed.innerHTML = `<p class='error'>Error fetching tweets: ${error.message}. Check your Bearer Token or API access.</p>`;
-            console.error("Fetch error details:", error);
-        });
-
-        // Optional: Add sample data for testing if API fails
         const sampleData = {
             data: [
                 { text: "Sample news tweet! Check https://example.com", created_at: "2025-03-10T12:00:00Z" },
-                { text: "Another update here.", created_at: "2025-03-10T11:00:00Z" }
+                { text: "Another update here with https://test.com", created_at: "2025-03-10T11:00:00Z" }
             ]
         };
-        // Uncomment the line below to test with sample data
-        // displaySampleData(sampleData);
+
+        // Uncommented to test with sample data
+        displaySampleData(sampleData);
 
         function displaySampleData(data) {
             const feed = document.getElementById("newsFeed");
@@ -106,6 +69,45 @@
                 feed.appendChild(tweetDiv);
             });
         }
+
+        // Commented out fetch block to avoid CORS error
+        // const apiUrl = "https://api.x.com/2/tweets/search/recent?query=news&tweet.fields=created_at";
+        // const token = "AAAAAAAAAAAAAAAAAAAAAN1RzwEAAAAA%2Bvf7iT2dBsgBZaHw9tP1Hz%2FXkw8%3DcqEgLkMVMXDJC3BDJs77qeNt0EK1G2rkKHWPK0zUV5YQk7sQ2f";
+        //
+        // fetch(apiUrl, {
+        //     headers: {
+        //         "Authorization": `Bearer ${token}`,
+        //         "Content-Type": "application/json"
+        //     }
+        // })
+        // .then(response => {
+        //     if (!response.ok) {
+        //         throw new Error(`HTTP error! Status: ${response.status}`);
+        //     }
+        //     return response.json();
+        // })
+        // .then(data => {
+        //     const feed = document.getElementById("newsFeed");
+        //     if (data.data && data.data.length > 0) {
+        //         data.data.forEach(tweet => {
+        //             const tweetDiv = document.createElement("div");
+        //             tweetDiv.className = "tweet";
+        //             const tweetText = tweet.text.replace(
+        //                 /(https?:\/\/[^\s]+)/g,
+        //                 '<a href="$1" target="_blank">$1</a>'
+        //             );
+        //             tweetDiv.innerHTML = `<p>${tweetText}</p><small>${new Date(tweet.created_at).toLocaleString()}</small>`;
+        //             feed.appendChild(tweetDiv);
+        //         });
+        //     } else {
+        //         feed.innerHTML = "<p class='error'>No tweets found or API limit reached.</p>";
+        //     }
+        // })
+        // .catch(error => {
+        //     const feed = document.getElementById("newsFeed");
+        //     feed.innerHTML = `<p class='error'>Error fetching tweets: ${error.message}. Check your Bearer Token or API access.</p>`;
+        //     console.error("Fetch error details:", error);
+        // });
     </script>
 </body>
 </html>
