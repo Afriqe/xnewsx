@@ -5,39 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XNewsX Aggregator</title>
     <style>
+        /* Your existing CSS remains unchanged */
         body {
-            font-family: Arial, sans-serif; /* Same font: Arial */
-            background-color: #ffffff; /* White background */
-            color: #000000; /* Black text */
-            margin: 0; /* Remove default margin for border */
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+            margin: 0;
             padding: 20px;
             text-align: center;
         }
         .container {
-            border: 1px solid #000000; /* Fine line around the site */
+            border: 1px solid #000000;
             padding: 20px;
-            max-width: 1200px; /* Limit width for newspaper feel */
-            margin: 0 auto; /* Center the container */
+            max-width: 1200px;
+            margin: 0 auto;
         }
         h1 {
-            color: #000000; /* Black for the header */
+            color: #000000;
             font-size: 2em;
             margin-bottom: 20px;
         }
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Newspaper-style grid */
-            gap: 20px; /* Space between boxes */
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
         }
         .box {
-            border: 1px solid #000000; /* Thin border around each box */
+            border: 1px solid #000000;
             padding: 10px;
             text-align: left;
         }
         .box h2 {
             font-size: 1.2em;
             margin-bottom: 10px;
-            border-bottom: 1px solid #000000; /* Underline the title */
+            border-bottom: 1px solid #000000;
             padding-bottom: 5px;
         }
         .post {
@@ -45,31 +46,31 @@
             font-size: 0.9em;
         }
         a {
-            color: #000000; /* Black links */
-            text-decoration: underline; /* Simple underline for links */
+            color: #000000;
+            text-decoration: underline;
         }
         a:hover {
-            color: #000000; /* No hover effect for simplicity */
+            color: #000000;
         }
         small {
-            color: #666666; /* Gray for timestamps */
+            color: #666666;
             font-size: 0.8em;
         }
         .ticker {
-            overflow: hidden; /* Hide overflow content */
-            white-space: nowrap; /* Prevent text wrapping */
-            border: 1px solid #000000; /* Thin border */
-            margin-top: 20px; /* Space above ticker */
-            padding: 5px 0; /* Vertical padding */
-            font-size: 0.9em; /* Match post text size */
+            overflow: hidden;
+            white-space: nowrap;
+            border: 1px solid #000000;
+            margin-top: 20px;
+            padding: 5px 0;
+            font-size: 0.9em;
         }
         .ticker-content {
             display: inline-block;
-            animation: scroll 20s linear infinite; /* Scroll animation */
+            animation: scroll 20s linear infinite;
         }
         .ticker-item {
             display: inline-block;
-            margin-right: 20px; /* Space between items */
+            margin-right: 20px;
         }
         @keyframes scroll {
             0% { transform: translateX(100%); }
@@ -81,73 +82,49 @@
 <body>
     <div class="container">
         <h1>XNewsX Feed</h1>
-        <div class="grid">
-            <!-- Box 1: Elon Musk X -->
-            <div class="box">
-                <h2>Elon Musk X</h2>
-                <div class="post">Elon announces new Tesla model <a href="https://example.com/tesla">Link</a><br><small>2025-03-10 12:00</small></div>
-                <div class="post">SpaceX launch successful <a href="https://example.com/spacex">Link</a><br><small>2025-03-10 11:30</small></div>
-                <div class="post">Neuralink update released <a href="https://example.com/neuralink">Link</a><br><small>2025-03-10 11:00</small></div>
-                <div class="post">Elon comments on AI <a href="https://example.com/ai">Link</a><br><small>2025-03-10 10:30</small></div>
-                <div class="post">Tesla factory expansion <a href="https://example.com/factory">Link</a><br><small>2025-03-10 10:00</small></div>
-            </div>
-            <!-- Box 2: Mario Nawfal X -->
-            <div class="box">
-                <h2>Mario Nawfal X</h2>
-                <div class="post">Mario on global markets <a href="https://example.com/markets">Link</a><br><small>2025-03-10 12:00</small></div>
-                <div class="post">Breaking news discussion <a href="https://example.com/breaking">Link</a><br><small>2025-03-10 11:30</small></div>
-                <div class="post">Crypto trends update <a href="https://example.com/crypto">Link</a><br><small>2025-03-10 11:00</small></div>
-                <div class="post">Mario hosts Spaces <a href="https://example.com/spaces">Link</a><br><small>2025-03-10 10:30</small></div>
-                <div class="post">Tech startup insights <a href="https://example.com/startup">Link</a><br><small>2025-03-10 10:00</small></div>
-            </div>
-            <!-- Box 3: Kevin O'Leary X -->
-            <div class="box">
-                <h2>Kevin O'Leary X</h2>
-                <div class="post">Kevin on Shark Tank <a href="https://example.com/sharktank">Link</a><br><small>2025-03-10 12:00</small></div>
-                <div class="post">Investment tips shared <a href="https://example.com/invest">Link</a><br><small>2025-03-10 11:30</small></div>
-                <div class="post">O'Leary on economy <a href="https://example.com/economy">Link</a><br><small>2025-03-10 11:00</small></div>
-                <div class="post">New business venture <a href="https://example.com/venture">Link</a><br><small>2025-03-10 10:30</small></div>
-                <div class="post">Financial advice post <a href="https://example.com/finance">Link</a><br><small>2025-03-10 10:00</small></div>
-            </div>
-            <!-- Box 4: Cuisine X -->
-            <div class="box">
-                <h2>Cuisine X</h2>
-                <div class="post">New recipe for pasta <a href="https://example.com/pasta">Link</a><br><small>2025-03-10 12:00</small></div>
-                <div class="post">Vegan dessert ideas <a href="https://example.com/vegan">Link</a><br><small>2025-03-10 11:30</small></div>
-                <div class="post">Spicy ramen challenge <a href="https://example.com/ramen">Link</a><br><small>2025-03-10 11:00</small></div>
-                <div class="post">BBQ tips for summer <a href="https://example.com/bbq">Link</a><br><small>2025-03-10 10:30</small></div>
-                <div class="post">French pastry tutorial <a href="https://example.com/pastry">Link</a><br><small>2025-03-10 10:00</small></div>
-            </div>
-            <!-- Box 5: Wellness X -->
-            <div class="box">
-                <h2>Wellness X</h2>
-                <div class="post">Morning yoga routine <a href="https://example.com/yoga">Link</a><br><small>2025-03-10 12:00</small></div>
-                <div class="post">Meditation benefits <a href="https://example.com/meditation">Link</a><br><small>2025-03-10 11:30</small></div>
-                <div class="post">Healthy smoothie recipe <a href="https://example.com/smoothie">Link</a><br><small>2025-03-10 11:00</small></div>
-                <div class="post">Sleep improvement tips <a href="https://example.com/sleep">Link</a><br><small>2025-03-10 10:30</small></div>
-                <div class="post">Stress relief guide <a href="https://example.com/stress">Link</a><br><small>2025-03-10 10:00</small></div>
-            </div>
-            <!-- Box 6: World News X -->
-            <div class="box">
-                <h2>World News X</h2>
-                <div class="post">Global climate summit <a href="https://example.com/climate">Link</a><br><small>2025-03-10 12:00</small></div>
-                <div class="post">Election results update <a href="https://example.com/election">Link</a><br><small>2025-03-10 11:30</small></div>
-                <div class="post">Economic forecast 2025 <a href="https://example.com/economy">Link</a><br><small>2025-03-10 11:00</small></div>
-                <div class="post">Peace talks progress <a href="https://example.com/peace">Link</a><br><small>2025-03-10 10:30</small></div>
-                <div class="post">Tech regulation news <a href="https://example.com/tech">Link</a><br><small>2025-03-10 10:00</small></div>
-            </div>
-        </div>
-        <!-- Simulated Live X Feed Ticker -->
-        <div class="ticker">
-            <div class="ticker-content">
-                <span class="ticker-item">Elon Musk: Tesla update <a href="https://example.com/tesla2">Link</a> - 10:41 AM SAST</span>
-                <span class="ticker-item">Mario Nawfal: Market crash <a href="https://example.com/market">Link</a> - 10:40 AM SAST</span>
-                <span class="ticker-item">Kevin O'Leary: Invest now <a href="https://example.com/invest2">Link</a> - 10:39 AM SAST</span>
-                <span class="ticker-item">Cuisine X: New sushi recipe <a href="https://example.com/sushi">Link</a> - 10:38 AM SAST</span>
-                <span class="ticker-item">Wellness X: Yoga tips <a href="https://example.com/yoga2">Link</a> - 10:37 AM SAST</span>
-                <span class="ticker-item">World News: Climate deal <a href="https://example.com/climate2">Link</a> - 10:36 AM SAST</span>
-            </div>
+        <div class="grid" id="news-grid"></div>
+        <div class="ticker" id="ticker">
+            <div class="ticker-content" id="ticker-content"></div>
         </div>
     </div>
+    <script>
+        // Define your X handle (replace with yours)
+        const myHandle = "@bitkoinafrika"; // e.g., "@MyTestAccount"
+
+        // Populate content dynamically
+        function populateContent(posts) {
+            const grid = document.getElementById("news-grid");
+            const ticker = document.getElementById("ticker-content");
+            grid.innerHTML = ""; // Clear existing content
+            ticker.innerHTML = "";
+
+            // Single box for your posts
+            const box = document.createElement("div");
+            box.className = "box";
+            box.innerHTML = `<h2>${myHandle} X</h2>`;
+            posts.forEach(post => {
+                box.innerHTML += `<div class="post">${post.text} <a href="${post.link}">Link</a><br><small>${post.time}</small></div>`;
+                ticker.innerHTML += `<span class="ticker-item">${myHandle}: ${post.text} <a href="${post.link}">Link</a> - ${post.time}</span>`;
+            });
+            grid.appendChild(box);
+        }
+
+        // Fetch live data from Netlify Function
+        async function loadLiveData() {
+            try {
+                const response = await fetch(`/.netlify/functions/fetch-tweets?handle=${myHandle.replace('@', '')}`);
+                const posts = await response.json();
+                populateContent(posts);
+            } catch (error) {
+                console.error("Error fetching live data:", error);
+                // Fallback mock data
+                populateContent([{ text: "Failed to load live data", link: "#", time: new Date().toLocaleString() }]);
+            }
+        }
+
+        // Load initially and refresh every minute
+        loadLiveData();
+        setInterval(loadLiveData, 60000); // 60 seconds
+    </script>
 </body>
 </html>
