@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XNewsX Aggregator</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace; /* Retro 80s typewriter font */
+            background-color: #000000; /* Black background */
+            color: #ffffff; /* White text for contrast */
+            margin: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #ff00ff; /* Neon pink for 80s vibe */
+            font-size: 2.5em;
+            text-decoration: underline;
+        }
+        .tweet {
+            border: 2px dashed #00ff00; /* Neon green dashed border */
+            padding: 15px;
+            margin: 10px auto;
+            max-width: 600px;
+            background-color: #1a1a1a; /* Dark gray for 80s screen effect */
+            color: #ffffff;
+        }
+        a {
+            color: #ff00ff; /* Neon pink links */
+            text-decoration: underline;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        a:hover {
+            color: #00ff00; /* Neon green on hover */
+        }
+        .error {
+            color: #ff0000; /* Red for errors */
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <h1>XNewsX Feed</h1>
+    <div id="newsFeed"></div>
+
+    <script>
+        // Replace with your X API Bearer Token from the Developer Portal
+        const apiUrl = "https://api.x.com/2/tweets/search/recent?query=news&tweet.fields=created_at";
+        const token = "AAAAAAAAAAAAAAAAAAAAAN1RzwEAAAAA%2Bvf7iT2dBsgBZaHw9tP1Hz%2FXkw8%3DcqEgLkMVMXDJC3BDJs77qeNt0EK1G2rkKHWPK0zUV5YQk7sQ2f"; // Get this from X Developer Portal
+
+        // Fetch tweets from X API
+        fetch(apiUrl, {
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.json();
+        })
+        .then(data => {
+            const feed = document.getElementById("newsFeed");
+            if (data.data && data.data.length > 0) {
+                data.data.forEach(tweet => {
+                    const tweetDiv = document.createElement("div");
+                    tweetDiv.className = "tweet";
+                    // Convert URLs in tweet text to clickable 80s-style links
+                    const tweetText = tweet.text.replace(
+                        /(https?:\/\/[^\s]+)/g,
+                        '<a href="$1" target="_blank">$1</a>'
+                    );
+                    tweetDiv.innerHTML = `<p>${tweetText}</p><small>${new Date(tweet.created_at).toLocaleString()}</small>`;
+                    feed.appendChild(tweetDiv);
+                });
+            } else {
+                feed.innerHTML = "<p class='error'>No tweets found or API limit reached.</p>";
+            }
+        })
+        .catch(error => {
+            const feed = document.getElementById("newsFeed");
+            feed.innerHTML = `<p class='error'>Error fetching tweets: ${error.message}. Check your Bearer Token or API access.</p>`;
+            console.error("Error:", error);
+        });
+    </script>
+</body>
+</html>
